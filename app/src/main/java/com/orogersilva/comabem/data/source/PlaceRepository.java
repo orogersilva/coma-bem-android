@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 
 import com.orogersilva.comabem.data.Place;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -99,6 +101,32 @@ public class PlaceRepository implements PlaceDataSource {
     }
 
     @Override
+    public void getPlaces(final LoadPlacesCallback callback) {
+
+        if (mCachedPlaces != null) {
+
+            callback.onPlacesLoaded(new ArrayList<>(mCachedPlaces.values()));
+            return;
+        }
+
+        mPlaceLocalDataSource.getPlaces(new LoadPlacesCallback() {
+
+            @Override
+            public void onPlacesLoaded(List<Place> places) {
+
+                refreshCache(places);
+                callback.onPlacesLoaded(new ArrayList<>(mCachedPlaces.values()));
+            }
+
+            @Override
+            public void onDataNotAvaiable() {
+
+                // TODO: 8/9/2016 TO IMPLEMENT
+            }
+        });
+    }
+
+    @Override
     public void savePlace(@NonNull Place place) {
 
         mPlaceLocalDataSource.savePlace(place);
@@ -133,6 +161,20 @@ public class PlaceRepository implements PlaceDataSource {
             return null;
         } else {
             return mCachedPlaces.get(id);
+        }
+    }
+
+    private void refreshCache(List<Place> places) {
+
+        if (mCachedPlaces == null) {
+            mCachedPlaces = new LinkedHashMap<>();
+        }
+
+        mCachedPlaces.clear();
+
+        for (Place place : places) {
+
+            mCachedPlaces.put(place.getId(), place);
         }
     }
 

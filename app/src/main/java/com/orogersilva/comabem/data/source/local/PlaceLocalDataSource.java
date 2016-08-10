@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.data.source.PlaceDataSource;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -64,6 +66,19 @@ public class PlaceLocalDataSource implements PlaceDataSource {
             callback.onPlaceLoaded(place);
         } else {
             callback.onDataNotAvailable();
+        }
+    }
+
+    @Override
+    public void getPlaces(LoadPlacesCallback callback) {
+
+        List<Place> places = mRealm.where(Place.class)
+                .findAll();
+
+        if (places != null) {
+            callback.onPlacesLoaded(places);
+        } else {
+            callback.onDataNotAvaiable();
         }
     }
 

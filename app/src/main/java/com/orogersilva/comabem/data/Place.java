@@ -105,7 +105,8 @@ public class Place extends RealmObject {
 
         final double PRECISION = 0.0001;
 
-        return Objects.equals(getName(), place.getName()) &&
+        return (getId() == place.getId()) &&
+                Objects.equals(getName(), place.getName()) &&
                 (getLat() - place.getLat() < PRECISION) &&
                 (getLng() - place.getLng() < PRECISION) &&
                 (getScore() - place.getScore() < PRECISION);
