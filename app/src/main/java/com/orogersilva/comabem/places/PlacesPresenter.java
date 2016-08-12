@@ -12,7 +12,7 @@ import java.util.List;
  * Created by orogersilva on 8/9/2016.
  */
 
-public class PlacePresenter implements PlacesContract.Presenter {
+public class PlacesPresenter implements PlacesContract.Presenter {
 
     // region FIELDS
 
@@ -23,7 +23,7 @@ public class PlacePresenter implements PlacesContract.Presenter {
 
     // region CONSTRUCTORS
 
-    public PlacePresenter(@NonNull PlaceRepository placeRepository, @NonNull PlacesContract.View placesView) {
+    public PlacesPresenter(@NonNull PlaceRepository placeRepository, @NonNull PlacesContract.View placesView) {
 
         mPlaceRepository = placeRepository;
         mPlacesView = placesView;

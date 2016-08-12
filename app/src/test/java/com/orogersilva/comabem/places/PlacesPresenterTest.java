@@ -3,7 +3,6 @@ package com.orogersilva.comabem.places;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.orogersilva.comabem.data.Place;
-import com.orogersilva.comabem.data.source.PlaceDataSource;
 import com.orogersilva.comabem.data.source.PlaceDataSource.LoadPlacesCallback;
 import com.orogersilva.comabem.data.source.PlaceRepository;
 
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ import static org.mockito.Mockito.when;
  * Created by orogersilva on 8/9/2016.
  */
 @SmallTest
-public class PlacePresenterTest {
+public class PlacesPresenterTest {
 
     // region FIELDS
 
@@ -42,7 +40,7 @@ public class PlacePresenterTest {
     @Captor
     private ArgumentCaptor<LoadPlacesCallback> mLoadPlacesCallbackCaptor;
 
-    private PlacePresenter mPlacePresenter;
+    private PlacesPresenter mPlacePresenter;
 
     // endregion
 
@@ -53,7 +51,7 @@ public class PlacePresenterTest {
 
         MockitoAnnotations.initMocks(this);
 
-        mPlacePresenter = new PlacePresenter(mPlaceRepository, mPlacesView);
+        mPlacePresenter = new PlacesPresenter(mPlaceRepository, mPlacesView);
 
         mPlaces = Arrays.asList(
                 new Place(1, "Le Grand Burguer", -30.020073, -51.202517, 9.76),
@@ -70,7 +68,7 @@ public class PlacePresenterTest {
     public void loadPlaces_whenThereAreNoPlaces_showEmptyPlacesList() {
 
         // ARRANGE
-        
+
         when(mPlacesView.isActive()).thenReturn(true);
 
         List<Place> expectedEmptyPlacesList = new ArrayList<>();
