@@ -51,16 +51,19 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     @Override
     public void showPlaces(List<Place> places) {
 
+        // TODO: 8/25/2016 TO IMPLEMENT
     }
 
     @Override
     public void setLoadingIndicator(boolean active) {
 
+        // TODO: 8/25/2016 TO IMPLEMENT
     }
 
     @Override
     public void showLoadingPlacesError() {
 
+        // TODO: 8/25/2016 TO IMPLEMENT
     }
 
     @Override

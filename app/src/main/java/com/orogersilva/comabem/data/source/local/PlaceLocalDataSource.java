@@ -10,7 +10,6 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmResults;
 
 /**
  * Created by orogersilva on 8/3/2016.
@@ -22,7 +21,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
 
     private static PlaceLocalDataSource INSTANCE = null;
 
-    private static Realm mRealm = null;
+    private static Realm sRealm = null;
 
     // endregion
 
@@ -45,7 +44,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
                     .name(DB_NAME)
                     .build();
 
-            mRealm = Realm.getInstance(realmConfiguration);
+            sRealm = Realm.getInstance(realmConfiguration);
         }
 
         return INSTANCE;
@@ -58,7 +57,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
     @Override
     public void getPlace(long id, @NonNull GetPlaceCallback callback) {
 
-        Place place = mRealm.where(Place.class)
+        Place place = sRealm.where(Place.class)
                 .equalTo("id", id)
                 .findFirst();
 
@@ -72,7 +71,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
     @Override
     public void getPlaces(LoadPlacesCallback callback) {
 
-        List<Place> places = mRealm.where(Place.class)
+        List<Place> places = sRealm.where(Place.class)
                 .findAll();
 
         if (places != null) {
@@ -85,11 +84,11 @@ public class PlaceLocalDataSource implements PlaceDataSource {
     @Override
     public void savePlace(@NonNull Place place) {
 
-        mRealm.beginTransaction();
+        sRealm.beginTransaction();
 
         try {
 
-            mRealm.copyToRealm(place);
+            sRealm.copyToRealm(place);
 
         } catch (IllegalArgumentException e) {
 
@@ -97,16 +96,16 @@ public class PlaceLocalDataSource implements PlaceDataSource {
 
         } finally {
 
-            mRealm.commitTransaction();
+            sRealm.commitTransaction();
         }
     }
 
     @Override
     public void deleteAllPlaces() {
 
-        mRealm.beginTransaction();
-        mRealm.deleteAll();
-        mRealm.commitTransaction();
+        sRealm.beginTransaction();
+        sRealm.deleteAll();
+        sRealm.commitTransaction();
     }
 
     // endregion
