@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -90,7 +91,34 @@ public class PlacesPresenterTest {
 
         verify(mPlacesView).showPlaces(showPlacesArgumentCaptor.capture());
 
-        Assert.assertTrue(showPlacesArgumentCaptor.getValue().size() == expectedEmptyPlacesList.size());
+        assertTrue(showPlacesArgumentCaptor.getValue().size() == expectedEmptyPlacesList.size());
+    }
+
+    @Test
+    public void loadPlaces_whenThereArePlaces_showPlacesList() {
+
+        // ARRANGE
+
+        when(mPlacesView.isActive()).thenReturn(true);
+
+        // ACT
+
+        mPlacePresenter.loadPlaces(true);
+
+        // ASSERT
+
+        verify(mPlacesView).setLoadingIndicator(true);
+
+        verify(mPlaceRepository).getPlaces(mLoadPlacesCallbackCaptor.capture());
+        mLoadPlacesCallbackCaptor.getValue().onPlacesLoaded(mPlaces);
+
+        verify(mPlacesView).setLoadingIndicator(false);
+
+        ArgumentCaptor<List> showPlacesArgumentCaptor = ArgumentCaptor.forClass(List.class);
+
+        verify(mPlacesView).showPlaces(showPlacesArgumentCaptor.capture());
+
+        assertTrue(showPlacesArgumentCaptor.getValue().size() == mPlaces.size());
     }
 
     // endregion
