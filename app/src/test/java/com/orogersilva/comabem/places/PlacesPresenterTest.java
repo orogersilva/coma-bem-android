@@ -30,8 +30,6 @@ public class PlacesPresenterTest {
 
     // region FIELDS
 
-    private List<Place> mPlaces;
-
     @Mock
     private PlaceRepository mPlaceRepository;
 
@@ -53,12 +51,6 @@ public class PlacesPresenterTest {
         MockitoAnnotations.initMocks(this);
 
         mPlacePresenter = new PlacesPresenter(mPlaceRepository, mPlacesView);
-
-        mPlaces = Arrays.asList(
-                new Place(1, "Le Grand Burguer", -30.020073, -51.202517, 9.76),
-                new Place(2, "Vermelho Grill", -30.027611, -51.158661, 9.91),
-                new Place(3, "Na Brasa", -30.022871, -51.211777, 9.82)
-        );
     }
 
     // endregion
@@ -72,7 +64,7 @@ public class PlacesPresenterTest {
 
         when(mPlacesView.isActive()).thenReturn(true);
 
-        List<Place> expectedEmptyPlacesList = new ArrayList<>();
+        List<Place> emptyPlacesList = new ArrayList<>();
 
         // ACT
 
@@ -83,7 +75,7 @@ public class PlacesPresenterTest {
         verify(mPlacesView).setLoadingIndicator(true);
 
         verify(mPlaceRepository).getPlaces(mLoadPlacesCallbackCaptor.capture());
-        mLoadPlacesCallbackCaptor.getValue().onPlacesLoaded(expectedEmptyPlacesList);
+        mLoadPlacesCallbackCaptor.getValue().onPlacesLoaded(emptyPlacesList);
 
         verify(mPlacesView).setLoadingIndicator(false);
 
@@ -91,13 +83,19 @@ public class PlacesPresenterTest {
 
         verify(mPlacesView).showPlaces(showPlacesArgumentCaptor.capture());
 
-        assertTrue(showPlacesArgumentCaptor.getValue().size() == expectedEmptyPlacesList.size());
+        assertTrue(showPlacesArgumentCaptor.getValue().size() == emptyPlacesList.size());
     }
 
     @Test
     public void loadPlaces_whenThereArePlaces_showPlacesList() {
 
         // ARRANGE
+
+        List<Place> places = Arrays.asList(
+                new Place(1, "Le Grand Burguer", -30.020073, -51.202517, 9.76),
+                new Place(2, "Vermelho Grill", -30.027611, -51.158661, 9.91),
+                new Place(3, "Na Brasa", -30.022871, -51.211777, 9.82)
+        );
 
         when(mPlacesView.isActive()).thenReturn(true);
 
@@ -110,7 +108,7 @@ public class PlacesPresenterTest {
         verify(mPlacesView).setLoadingIndicator(true);
 
         verify(mPlaceRepository).getPlaces(mLoadPlacesCallbackCaptor.capture());
-        mLoadPlacesCallbackCaptor.getValue().onPlacesLoaded(mPlaces);
+        mLoadPlacesCallbackCaptor.getValue().onPlacesLoaded(places);
 
         verify(mPlacesView).setLoadingIndicator(false);
 
@@ -118,7 +116,7 @@ public class PlacesPresenterTest {
 
         verify(mPlacesView).showPlaces(showPlacesArgumentCaptor.capture());
 
-        assertTrue(showPlacesArgumentCaptor.getValue().size() == mPlaces.size());
+        assertTrue(showPlacesArgumentCaptor.getValue().size() == places.size());
     }
 
     // endregion
