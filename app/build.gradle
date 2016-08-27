@@ -17,7 +17,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 23
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch * 1
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}-SNAPSHOT"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
