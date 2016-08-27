@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/orogersilva/coma-bem-android.svg?branch=master)](https://travis-ci.org/orogersilva/coma-bem-android)
 
-App Android para recomendação de bons locais para almoçar e jantar.
+Android app for recommendation of good places for lunch and dinner.
 
 License
 -------
