@@ -28,22 +28,21 @@ import static org.junit.Assert.assertNull;
 @LargeTest
 public class PlaceLocalDataSourceTest {
 
-    private static Context sContext;
+    // region FIELDS
+
     private static RealmConfiguration sRealmConfiguration;
     private static PlaceLocalDataSource sPlaceDataSource;
 
-    private static final String DB_NAME = "comabemtesting.realm";
+    // endregion
 
     // region SETUP METHODS
 
     @BeforeClass
     public static void setupClass() {
 
-        sContext = InstrumentationRegistry.getTargetContext();
-        sRealmConfiguration = new RealmConfiguration.Builder(sContext)
-                .name(DB_NAME)
-                .build();
-        sPlaceDataSource = PlaceLocalDataSource.getInstance(sContext);
+        sPlaceDataSource = PlaceLocalDataSource.getInstance(
+                InstrumentationRegistry.getTargetContext()
+        );
     }
 
     @Before
@@ -61,36 +60,6 @@ public class PlaceLocalDataSourceTest {
 
         sPlaceDataSource.savePlace(null);
     }
-
-    /*@Test
-    public void savePlace_whenPlaceIsValid_operationWasSuccessful() {
-
-        // ARRANGE
-
-        final String ERROR_MESSAGE = "Place has not been saved correctly.";
-
-        final long ID = 1;
-        final String NAME = "Restaurante Coma Bem";
-        final double LAT = -30.0393;
-        final double LNG = -51.244;
-        final double SCORE = 10.0;
-
-        Place expectedPlace = new Place(ID, NAME, LAT, LNG, SCORE);
-
-        // ACT
-
-        sPlaceDataSource.savePlace(expectedPlace);
-
-        // ASSERT
-
-        Realm realm = Realm.getInstance(sRealmConfiguration);
-
-        Place retrievedPlace = realm.where(Place.class)
-                .equalTo("id", ID)
-                .findFirst();
-
-        assertEquals(ERROR_MESSAGE, expectedPlace, retrievedPlace);
-    }*/
 
     // endregion
 

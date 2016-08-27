@@ -16,6 +16,8 @@ public class PlacesActivity extends AppCompatActivity {
 
     // region FIELDS
 
+    private static final String TAG  = "PlacesActivity";
+
     private PlacesFragment mPlacesFragment;
     private PlacesPresenter mPlacesPresenter;
 
@@ -30,10 +32,11 @@ public class PlacesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_places);
 
         if (mPlacesFragment == null) {
-            mPlacesFragment = PlacesFragment.newInstance();
-        }
 
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mPlacesFragment, R.id.contentFrame);
+            mPlacesFragment = PlacesFragment.newInstance();
+
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mPlacesFragment, R.id.contentFrame);
+        }
 
         mPlacesPresenter = new PlacesPresenter(PlaceRepository.getInstance(
                 PlaceLocalDataSource.getInstance(this), PlaceLocalDataSource.getInstance(this)),

@@ -1,6 +1,7 @@
 package com.orogersilva.comabem.places;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.data.source.PlaceDataSource;
@@ -15,6 +16,8 @@ import java.util.List;
 public class PlacesPresenter implements PlacesContract.Presenter {
 
     // region FIELDS
+
+    private static final String TAG = "PlacesPresenter";
 
     private final PlaceRepository mPlaceRepository;
     private final PlacesContract.View mPlacesView;

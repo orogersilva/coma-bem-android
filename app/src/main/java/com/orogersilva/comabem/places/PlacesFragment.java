@@ -1,6 +1,7 @@
 package com.orogersilva.comabem.places;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.places.PlacesContract.Presenter;
@@ -14,6 +15,8 @@ import java.util.List;
 public class PlacesFragment extends Fragment implements PlacesContract.View {
 
     // region FIELDS
+
+    private static final String TAG  = "PlacesFragment";
 
     private Presenter mPlacesPresenter;
 

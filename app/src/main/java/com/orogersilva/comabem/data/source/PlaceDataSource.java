@@ -12,12 +12,6 @@ import java.util.List;
 
 public interface PlaceDataSource {
 
-    // region FIELDS
-
-    String DB_NAME = "comabem.realm";
-
-    // endregion
-
     // region CALLBACKS
 
     interface GetPlaceCallback {

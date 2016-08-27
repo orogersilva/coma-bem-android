@@ -23,6 +23,8 @@ public class PlaceLocalDataSource implements PlaceDataSource {
 
     private static Realm sRealm = null;
 
+    private static String DB_NAME = "comabem.db";
+
     // endregion
 
     // region CONSTRUCTORS
