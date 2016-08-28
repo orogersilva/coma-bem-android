@@ -33,7 +33,7 @@ public interface PlacesContract {
 
         // region METHODS
 
-        void loadPlaces(boolean showLoadingUI);
+        void loadPlaces(boolean forceUpdate, boolean showLoadingUI);
 
         // endregion
     }

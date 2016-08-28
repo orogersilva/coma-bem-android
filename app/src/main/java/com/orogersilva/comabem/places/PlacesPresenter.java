@@ -39,7 +39,7 @@ public class PlacesPresenter implements PlacesContract.Presenter {
     // region OVERRIDED METHODS
 
     @Override
-    public void loadPlaces(final boolean showLoadingUI) {
+    public void loadPlaces(boolean forceUpdate, final boolean showLoadingUI) {
 
         if (showLoadingUI) {
 
@@ -72,7 +72,7 @@ public class PlacesPresenter implements PlacesContract.Presenter {
     @Override
     public void start() {
 
-        loadPlaces(true);
+        loadPlaces(false, true);
     }
 
     // endregion

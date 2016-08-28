@@ -68,7 +68,7 @@ public class PlacesPresenterTest {
 
         // ACT
 
-        mPlacePresenter.loadPlaces(true);
+        mPlacePresenter.loadPlaces(false, true);
 
         // ASSERT
 
@@ -101,7 +101,7 @@ public class PlacesPresenterTest {
 
         // ACT
 
-        mPlacePresenter.loadPlaces(true);
+        mPlacePresenter.loadPlaces(false, true);
 
         // ASSERT
 

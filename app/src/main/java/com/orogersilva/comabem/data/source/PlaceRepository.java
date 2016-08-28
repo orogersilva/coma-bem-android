@@ -23,7 +23,9 @@ public class PlaceRepository implements PlaceDataSource {
     private final PlaceDataSource mPlaceLocalDataSource;
     private final PlaceDataSource mPlaceRemoteDataSource;
 
-    Map<Long, Place> mCachedPlaces;
+    private boolean mCacheIsDirty = false;
+
+    Map<Long, Place> mCachedPlaces = null;
 
     // endregion
 
@@ -54,6 +56,11 @@ public class PlaceRepository implements PlaceDataSource {
         }
 
         return INSTANCE;
+    }
+
+    public static void destroyInstance() {
+
+        INSTANCE = null;
     }
 
     // endregion
@@ -103,27 +110,34 @@ public class PlaceRepository implements PlaceDataSource {
     @Override
     public void getPlaces(final LoadPlacesCallback callback) {
 
-        if (mCachedPlaces != null) {
+        if (mCachedPlaces != null && !mCacheIsDirty) {
 
             callback.onPlacesLoaded(new ArrayList<>(mCachedPlaces.values()));
             return;
         }
 
-        mPlaceLocalDataSource.getPlaces(new LoadPlacesCallback() {
+        if (mCacheIsDirty) {
 
-            @Override
-            public void onPlacesLoaded(List<Place> places) {
+            getPlacesFromRemoteDataSource(callback);
 
-                refreshCache(places);
-                callback.onPlacesLoaded(new ArrayList<>(mCachedPlaces.values()));
-            }
+        } else {
 
-            @Override
-            public void onDataNotAvaiable() {
+            mPlaceLocalDataSource.getPlaces(new LoadPlacesCallback() {
 
-                // TODO: 8/9/2016 TO IMPLEMENT
-            }
-        });
+                @Override
+                public void onPlacesLoaded(List<Place> places) {
+
+                    refreshCache(places);
+                    callback.onPlacesLoaded(new ArrayList<>(mCachedPlaces.values()));
+                }
+
+                @Override
+                public void onDataNotAvaiable() {
+
+                    getPlacesFromRemoteDataSource(callback);
+                }
+            });
+        }
     }
 
     @Override
@@ -148,6 +162,12 @@ public class PlaceRepository implements PlaceDataSource {
         if (mCachedPlaces != null) {
             mCachedPlaces.clear();
         }
+    }
+
+    @Override
+    public void refreshPlaces() {
+
+        mCacheIsDirty = true;
     }
 
     // endregion
@@ -176,6 +196,36 @@ public class PlaceRepository implements PlaceDataSource {
 
             mCachedPlaces.put(place.getId(), place);
         }
+    }
+
+    private void refreshLocalDataSource(List<Place> places) {
+
+        mPlaceLocalDataSource.deleteAllPlaces();
+
+        for (Place place : places) {
+            mPlaceLocalDataSource.savePlace(place);
+        }
+    }
+
+    private void getPlacesFromRemoteDataSource(@NonNull final LoadPlacesCallback callback) {
+
+        mPlaceRemoteDataSource.getPlaces(new LoadPlacesCallback() {
+
+            @Override
+            public void onPlacesLoaded(List<Place> places) {
+
+                refreshCache(places);
+                refreshLocalDataSource(places);
+
+                callback.onPlacesLoaded(places);
+            }
+
+            @Override
+            public void onDataNotAvaiable() {
+
+                callback.onDataNotAvaiable();
+            }
+        });
     }
 
     // endregion

@@ -38,5 +38,7 @@ public interface PlaceDataSource {
 
     void deleteAllPlaces();
 
+    void refreshPlaces();
+
     // endregion
 }

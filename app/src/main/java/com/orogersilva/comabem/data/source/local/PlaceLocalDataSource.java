@@ -23,7 +23,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
 
     private static Realm sRealm = null;
 
-    private static String DB_NAME = "comabem.db";
+    private static final String DB_NAME = "comabem.sqlite";
 
     // endregion
 
@@ -45,6 +45,18 @@ public class PlaceLocalDataSource implements PlaceDataSource {
             RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
                     .name(DB_NAME)
                     .build();
+
+            sRealm = Realm.getInstance(realmConfiguration);
+        }
+
+        return INSTANCE;
+    }
+
+    public static PlaceLocalDataSource getInstance(RealmConfiguration realmConfiguration) {
+
+        if (INSTANCE == null) {
+
+            INSTANCE = new PlaceLocalDataSource();
 
             sRealm = Realm.getInstance(realmConfiguration);
         }
@@ -108,6 +120,12 @@ public class PlaceLocalDataSource implements PlaceDataSource {
         sRealm.beginTransaction();
         sRealm.deleteAll();
         sRealm.commitTransaction();
+    }
+
+    @Override
+    public void refreshPlaces() {
+
+        // TODO: 8/27/2016 TO IMPLEMENT
     }
 
     // endregion

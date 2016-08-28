@@ -101,5 +101,11 @@ public class PlaceRemoteDataSource implements PlaceDataSource {
 
     }
 
+    @Override
+    public void refreshPlaces() {
+
+        // TODO: 8/27/2016 TO IMPLEMENT
+    }
+
     // endregion
 }

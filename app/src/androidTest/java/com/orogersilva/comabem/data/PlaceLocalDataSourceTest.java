@@ -30,7 +30,10 @@ public class PlaceLocalDataSourceTest {
 
     // region FIELDS
 
+    private static Context sContext;
+
     private static RealmConfiguration sRealmConfiguration;
+
     private static PlaceLocalDataSource sPlaceDataSource;
 
     // endregion
@@ -40,9 +43,15 @@ public class PlaceLocalDataSourceTest {
     @BeforeClass
     public static void setupClass() {
 
-        sPlaceDataSource = PlaceLocalDataSource.getInstance(
-                InstrumentationRegistry.getTargetContext()
-        );
+        final String DB_NAME = "comabem.sqlite";
+
+        sContext = InstrumentationRegistry.getTargetContext();
+
+        sRealmConfiguration = new RealmConfiguration.Builder(sContext)
+                .name(DB_NAME)
+                .build();
+
+        sPlaceDataSource = PlaceLocalDataSource.getInstance(sRealmConfiguration);
     }
 
     @Before
@@ -59,6 +68,34 @@ public class PlaceLocalDataSourceTest {
         // ACT / ASSERT
 
         sPlaceDataSource.savePlace(null);
+    }
+
+    @Test
+    public void savePlace_whenPlaceIsValid_operationWasSuccessful() {
+
+        // ARRANGE
+
+        final long ID = 1;
+        final String NAME = "Le Grand Burguer";
+        final double LAT = -30.020073;
+        final double LNG = -51.202517;
+        final double SCORE = 9.76;
+
+        Place expectedPlace = new Place(ID, NAME, LAT, LNG, SCORE);
+
+        // ACT
+
+        sPlaceDataSource.savePlace(expectedPlace);
+
+        // ASSERT
+
+        Realm realm = Realm.getInstance(sRealmConfiguration);
+
+        Place place = realm.where(Place.class)
+                .equalTo("id", ID)
+                .findFirst();
+
+        assertEquals(expectedPlace, place);
     }
 
     // endregion
