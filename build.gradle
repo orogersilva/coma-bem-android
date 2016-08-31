@@ -23,6 +23,24 @@ allprojects {
     }
 }
 
+ext {
+
+    // SDK and tools
+    minSdkVersion = 19
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.3'
+
+    // Dependencies versions
+    supportLibraryVersion = '23.4.0'
+
+    gsonLibraryVersion = '2.6.2'
+    butterknifeLibraryVersion = '8.4.0'
+    retrofitLibraryVersion = '2.1.0'
+    junitLibraryVersion = '4.12'
+    espressoLibraryVersion = '2.2.2'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
