@@ -3,7 +3,6 @@ package com.orogersilva.comabem.util;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 
 /**
  * Created by orogersilva on 8/11/2016.

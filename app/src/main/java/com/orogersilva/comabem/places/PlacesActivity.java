@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.orogersilva.comabem.R;
 import com.orogersilva.comabem.data.source.PlaceRepository;
 import com.orogersilva.comabem.data.source.local.PlaceLocalDataSource;
+import com.orogersilva.comabem.data.source.remote.PlaceRemoteDataSource;
+import com.orogersilva.comabem.places.view.PlacesFragment;
 import com.orogersilva.comabem.util.ActivityUtils;
 
 /**
@@ -39,7 +41,7 @@ public class PlacesActivity extends AppCompatActivity {
         }
 
         mPlacesPresenter = new PlacesPresenter(PlaceRepository.getInstance(
-                PlaceLocalDataSource.getInstance(this), PlaceLocalDataSource.getInstance(this)),
+                PlaceLocalDataSource.getInstance(this), PlaceRemoteDataSource.getInstance()),
                 mPlacesFragment);
     }
 

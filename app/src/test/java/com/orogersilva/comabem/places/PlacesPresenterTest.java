@@ -6,7 +6,6 @@ import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.data.source.PlaceDataSource.LoadPlacesCallback;
 import com.orogersilva.comabem.data.source.PlaceRepository;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

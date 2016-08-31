@@ -23,8 +23,7 @@ public class PlaceRemoteDataSource implements PlaceDataSource {
 
     private static PlaceRemoteDataSource INSTANCE;
 
-    // TODO: 8/11/2016 Specify the base url.
-    private static final String BASE_URL = "";
+    private static final String BASE_URL = "http://10.0.2.2:3000";
 
     private static Retrofit sRetrofit;
 
@@ -60,6 +59,7 @@ public class PlaceRemoteDataSource implements PlaceDataSource {
     @Override
     public void getPlace(long id, @NonNull GetPlaceCallback callback) {
 
+        // TODO: 8/29/2016 TO IMPLEMENT
     }
 
     @Override
@@ -74,13 +74,7 @@ public class PlaceRemoteDataSource implements PlaceDataSource {
             @Override
             public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
 
-                final int OK_STATUS = 200;
-
-                int statusCode = response.code();
-
-                if (statusCode == OK_STATUS) {
-                    callback.onPlacesLoaded(response.body());
-                }
+                callback.onPlacesLoaded(response.body());
             }
 
             @Override
@@ -93,7 +87,6 @@ public class PlaceRemoteDataSource implements PlaceDataSource {
 
     @Override
     public void savePlace(@NonNull Place place) {
-
     }
 
     @Override

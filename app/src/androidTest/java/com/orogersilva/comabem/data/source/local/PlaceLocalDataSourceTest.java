@@ -1,15 +1,15 @@
-package com.orogersilva.comabem.data;
+package com.orogersilva.comabem.data.source.local;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.data.source.local.PlaceLocalDataSource;
 
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +19,6 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  * Created by orogersilva on 8/8/2016.

@@ -1,7 +1,6 @@
 package com.orogersilva.comabem.places;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.data.source.PlaceDataSource;

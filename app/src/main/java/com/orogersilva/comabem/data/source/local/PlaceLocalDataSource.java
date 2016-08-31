@@ -88,7 +88,7 @@ public class PlaceLocalDataSource implements PlaceDataSource {
         List<Place> places = sRealm.where(Place.class)
                 .findAll();
 
-        if (places != null) {
+        if (!places.isEmpty()) {
             callback.onPlacesLoaded(places);
         } else {
             callback.onDataNotAvaiable();
