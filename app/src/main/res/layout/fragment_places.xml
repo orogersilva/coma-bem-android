@@ -25,5 +25,4 @@
         app:indicatorName="BallPulseIndicator"
         app:indicatorColor="@color/indigo"/>
 
-
 </RelativeLayout>
