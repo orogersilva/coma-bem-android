@@ -32,6 +32,14 @@ android {
     }
 }
 
+// Show test status in console.
+tasks.withType(Test) {
+
+    testLogging {
+        events "passed", "failed"
+    }
+}
+
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
