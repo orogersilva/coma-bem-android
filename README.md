@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/orogersilva/coma-bem-android.svg?branch=master)](https://travis-ci.org/orogersilva/coma-bem-android)
+[![Build Status](https://www.bitrise.io/app/c0a9328593ff9132.svg?token=6pmuI-alGKopDs5CLdVAqg&branch=master)](https://www.bitrise.io/app/c0a9328593ff9132)
 
 Android app for recommendation of good places for lunch and dinner.
 
