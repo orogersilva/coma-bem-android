@@ -84,6 +84,7 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     @Override
     public void showPlaces(List<Place> places) {
 
+        mPlaces.clear();
         mPlaces.addAll(places);
 
         mAdapter.notifyDataSetChanged();

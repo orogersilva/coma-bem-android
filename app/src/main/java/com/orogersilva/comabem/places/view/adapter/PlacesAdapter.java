@@ -1,6 +1,8 @@
 package com.orogersilva.comabem.places.view.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +11,14 @@ import android.widget.TextView;
 import com.orogersilva.comabem.ItemView;
 import com.orogersilva.comabem.R;
 import com.orogersilva.comabem.data.Place;
+import com.orogersilva.comabem.util.NumberUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.orogersilva.comabem.util.NumberUtils.isEven;
 
 /**
  * Created by orogersilva on 8/29/2016.
@@ -73,10 +78,6 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ItemViewHo
 
         @BindView(R.id.nameTextView)
         TextView mNameTextView;
-        @BindView(R.id.latTextView)
-        TextView mLatTextView;
-        @BindView(R.id.lngTextView)
-        TextView mLngTextView;
         @BindView(R.id.scoreTextView)
         TextView mScoreTextView;
 
@@ -98,9 +99,13 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ItemViewHo
         @Override
         public void setItem(Place place) {
 
+            if (isEven(getAdapterPosition())) {
+                itemView.setBackgroundResource(R.color.indigo);
+            } else {
+                itemView.setBackgroundResource(R.color.light_indigo);
+            }
+
             mNameTextView.setText(place.getName());
-            mLatTextView.setText(String.valueOf(place.getLat()));
-            mLngTextView.setText(String.valueOf(place.getLng()));
             mScoreTextView.setText(String.valueOf(place.getScore()));
         }
 
