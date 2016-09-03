@@ -51,6 +51,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.butterknifeLibraryVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitLibraryVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitLibraryVersion"
+    compile "com.wang.avi:library:$rootProject.avLoadingIndicatorViewLibraryVersion"
 
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeLibraryVersion"
 

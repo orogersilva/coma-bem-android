@@ -13,6 +13,7 @@ import com.orogersilva.comabem.data.Place;
 import com.orogersilva.comabem.places.PlacesContract;
 import com.orogersilva.comabem.places.PlacesContract.Presenter;
 import com.orogersilva.comabem.places.view.adapter.PlacesAdapter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     private RecyclerView mPlacesRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
+
+    private AVLoadingIndicatorView mLoadingView;
 
     private List<Place> mPlaces = new ArrayList<>();
 
@@ -59,10 +62,12 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
 
         View view = inflater.inflate(R.layout.fragment_places, container, false);
 
+        mPlacesRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecyclerView);
+        mLoadingView = (AVLoadingIndicatorView) view.findViewById(R.id.loadingView);
+
         mLayoutManager = new LinearLayoutManager(getContext());
         mAdapter = new PlacesAdapter(mPlaces);
 
-        mPlacesRecyclerView = (RecyclerView) view.findViewById(R.id.placesRecyclerView);
         mPlacesRecyclerView.setLayoutManager(mLayoutManager);
         mPlacesRecyclerView.setAdapter(mAdapter);
 
@@ -93,7 +98,11 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     @Override
     public void setLoadingIndicator(boolean active) {
 
-        // TODO: 8/25/2016 TO IMPLEMENT
+        if (active) {
+            mLoadingView.show();
+        } else {
+            mLoadingView.hide();
+        }
     }
 
     @Override
