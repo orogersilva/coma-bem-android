@@ -1,6 +1,6 @@
 jacocoAndroidUnitTestReport {
 
     csv.enabled false
-    html.enabled true
-    xml.enabled false
+    html.enabled false
+    xml.enabled true
 }
