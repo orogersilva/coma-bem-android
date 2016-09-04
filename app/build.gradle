@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
+apply plugin: 'jacoco-android'
+
+apply from: "${rootProject.getRootDir()}/jacoco.gradle"
 
 // Versioning information
 def versionMajor = 0
@@ -23,6 +26,12 @@ android {
     }
 
     buildTypes {
+
+        debug {
+
+            // Enable insrtrumentation tests coverage.
+            testCoverageEnabled true
+        }
 
         release {
 

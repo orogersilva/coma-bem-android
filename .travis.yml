@@ -36,3 +36,6 @@ before_script:
 
 script:
     ./gradlew clean testDebugUnitTest connectedDebugAndroidTest assembleDebug
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
