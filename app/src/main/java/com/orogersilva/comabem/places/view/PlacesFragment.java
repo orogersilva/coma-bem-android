@@ -1,5 +1,6 @@
 package com.orogersilva.comabem.places.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.orogersilva.comabem.R;
 import com.orogersilva.comabem.data.Place;
+import com.orogersilva.comabem.placedetails.PlaceDetailsActivity;
 import com.orogersilva.comabem.places.PlacesContract;
 import com.orogersilva.comabem.places.PlacesContract.Presenter;
 import com.orogersilva.comabem.places.view.adapter.PlacesAdapter;
@@ -37,6 +39,28 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     private AVLoadingIndicatorView mLoadingView;
 
     private List<Place> mPlaces = new ArrayList<>();
+
+    private PlaceItemListener mPlaceItemListener = new PlaceItemListener() {
+
+        @Override
+        public void onPlaceClick(Place place) {
+
+            mPlacesPresenter.loadPlaceDetails();
+        }
+    };
+
+    // endregion
+
+    // region INTERFACES
+
+    public interface PlaceItemListener {
+
+        // region METHODS
+
+        void onPlaceClick(Place place);
+
+        // endregion
+    }
 
     // endregion
 
@@ -66,7 +90,7 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
         mLoadingView = (AVLoadingIndicatorView) view.findViewById(R.id.loadingView);
 
         mLayoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new PlacesAdapter(mPlaces);
+        mAdapter = new PlacesAdapter(mPlaces, mPlaceItemListener);
 
         mPlacesRecyclerView.setLayoutManager(mLayoutManager);
         mPlacesRecyclerView.setAdapter(mAdapter);
@@ -87,12 +111,16 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     // region OVERRIDED METHODS
 
     @Override
-    public void showPlaces(List<Place> places) {
+    public boolean isActive() {
 
-        mPlaces.clear();
-        mPlaces.addAll(places);
+        return true;
+    }
 
-        mAdapter.notifyDataSetChanged();
+    @Override
+    public void showPlaceDetails() {
+
+        Intent intent = new Intent(getContext(), PlaceDetailsActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -112,9 +140,12 @@ public class PlacesFragment extends Fragment implements PlacesContract.View {
     }
 
     @Override
-    public boolean isActive() {
+    public void showPlaces(List<Place> places) {
 
-        return true;
+        mPlaces.clear();
+        mPlaces.addAll(places);
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

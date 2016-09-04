@@ -18,13 +18,15 @@ public interface PlacesContract {
 
         // region METHODS
 
-        void showPlaces(List<Place> places);
+        boolean isActive();
 
         void setLoadingIndicator(boolean active);
 
         void showLoadingPlacesError();
 
-        boolean isActive();
+        void showPlaceDetails();
+
+        void showPlaces(List<Place> places);
 
         // endregion
     }
@@ -32,6 +34,8 @@ public interface PlacesContract {
     interface Presenter extends BasePresenter {
 
         // region METHODS
+
+        void loadPlaceDetails();
 
         void loadPlaces(boolean forceUpdate, boolean showLoadingUI);
 

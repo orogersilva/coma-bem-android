@@ -1,5 +1,6 @@
 package com.orogersilva.comabem.places;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.orogersilva.comabem.data.Place;
@@ -66,6 +67,12 @@ public class PlacesPresenter implements PlacesContract.Presenter {
                 mPlacesView.showLoadingPlacesError();
             }
         });
+    }
+
+    @Override
+    public void loadPlaceDetails() {
+
+        mPlacesView.showPlaceDetails();
     }
 
     @Override

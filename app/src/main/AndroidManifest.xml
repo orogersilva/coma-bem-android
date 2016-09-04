@@ -18,6 +18,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".placedetails.PlaceDetailsActivity">
+        </activity>
+
     </application>
 
 </manifest>

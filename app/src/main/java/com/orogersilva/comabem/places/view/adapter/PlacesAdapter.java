@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.orogersilva.comabem.ItemView;
 import com.orogersilva.comabem.R;
 import com.orogersilva.comabem.data.Place;
+import com.orogersilva.comabem.places.view.PlacesFragment;
 import com.orogersilva.comabem.util.NumberUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.orogersilva.comabem.util.NumberUtils.isEven;
 
@@ -28,15 +30,19 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ItemViewHo
 
     // region FIELDS
 
+    private static final String TAG = "PlacesAdapter";
+
     private List<Place> mPlaces;
+    private PlacesFragment.PlaceItemListener mPlaceItemListener;
 
     // endregion
 
     // region CONSTRUCTORS
 
-    public PlacesAdapter(List<Place> places) {
+    public PlacesAdapter(List<Place> places, PlacesFragment.PlaceItemListener placeItemListener) {
 
         mPlaces = places;
+        mPlaceItemListener = placeItemListener;
     }
 
     // endregion
@@ -107,6 +113,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ItemViewHo
 
             mNameTextView.setText(place.getName());
             mScoreTextView.setText(String.valueOf(place.getScore()));
+        }
+
+        @OnClick(R.id.itemview_place)
+        public void onPlaceClick() {
+
+            mPlaceItemListener.onPlaceClick(mPlaces.get(getAdapterPosition()));
         }
 
         // endregion
