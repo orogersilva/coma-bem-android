@@ -46,6 +46,11 @@ public class PlacesPresenter implements PlacesContract.Presenter {
             mPlacesView.setLoadingIndicator(true);
         }
 
+        if (forceUpdate) {
+
+            mPlaceRepository.refreshPlaces();
+        }
+
         mPlaceRepository.getPlaces(new PlaceDataSource.LoadPlacesCallback() {
 
             @Override

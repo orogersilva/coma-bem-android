@@ -20,12 +20,12 @@ public class PlaceRepository implements PlaceDataSource {
 
     private static PlaceRepository INSTANCE = null;
 
+    Map<Long, Place> mCachedPlaces = null;
+
     private final PlaceDataSource mPlaceLocalDataSource;
     private final PlaceDataSource mPlaceRemoteDataSource;
 
     private boolean mCacheIsDirty = false;
-
-    Map<Long, Place> mCachedPlaces = null;
 
     // endregion
 
